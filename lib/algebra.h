@@ -19,7 +19,7 @@ public:
 			coefficients[i] = 0;
 		parse(x);
 	}
-	void parse(std::string exp) {
+	void parse(std::string exp) {		// Kanav: Needs a lot of revision.
 		trim(exp);
 		bool flag = false;
 		int temp_power, start = 0;
@@ -65,6 +65,19 @@ public:
 			der.coefficients[i] = (i+1)*coefficients[i+1];
 		}
 		return der;
+	}
+	std::string display() {
+		std::string exp = "";
+		for (int i = 99; i >= 0; i--) {
+			if(coefficients[i] != 0) {
+				exp += "+(";
+				exp += std::to_string(coefficients[i]);
+				exp += ")x^(";
+				exp += std::to_string(i);
+				exp += ")";
+			}
+		}
+		return exp;
 	}
 };
 #endif
