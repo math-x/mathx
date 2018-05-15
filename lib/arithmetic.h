@@ -1,13 +1,10 @@
 #ifndef ARITHMETIC_H_
 #define ARITHMETIC_H_
 
-
-// This power function only return rvalue references
-// and works with c++14 and above
-template<typename T>
-auto power(const T& x, const T& n){
+template<typename T, typename N>
+auto power(const T& x, const N& n){
 	if( n == 0 )
-		return 1;
+		return static_cast<T>(1);
 
 	auto tmp = power( x, n/2 );
 	if( n % 2 == 0 )
