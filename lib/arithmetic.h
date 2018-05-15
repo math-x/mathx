@@ -1,40 +1,19 @@
 #ifndef ARITHMETIC_H_
 #define ARITHMETIC_H_
-long long power(long long x,long long n){
+
+
+// This power function only return rvalue references
+// and works with c++14 and above
+template<typename T>
+auto power(const T& x, const T& n){
 	if( n == 0 )
 		return 1;
-	long long tmp = power( x , n/2 );
-	if( n % 2 == 0)
-		return tmp * tmp;
+
+	auto tmp = power( x, n/2 );
+	if( n % 2 == 0 )
+		return tmp * temp;
 	else
 		return tmp * tmp * x;
 }
 
-long double power(long double x,long long n){
-	if( n == 0 )
-		return 1;
-	long double tmp = power( x , n/2 );
-	if( n % 2 == 0)
-		return tmp * tmp;
-	else
-		return tmp * tmp * x;
-}
-long double power(double x,long long n){
-	if( n == 0 )
-		return 1;
-	long double tmp = power( x , n/2 );
-	if( n % 2 == 0)
-		return tmp * tmp;
-	else
-		return tmp * tmp * x;
-}
-float power(float x,long long n){
-	if( n == 0 )
-		return 1;
-	float tmp = power( x , n/2 );
-	if( n % 2 == 0)
-		return tmp * tmp;
-	else
-		return tmp * tmp * x;
-}
 #endif
