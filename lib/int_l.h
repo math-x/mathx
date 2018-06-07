@@ -22,6 +22,19 @@ public:
 	int_l operator+ (const int_l &y);
 	// << operator to make it usable for cout
 	friend std::ostream& operator<<(std::ostream& os, const int_l &c);
+	// Assignment operator
+	void operator= (const long long &x);
+	// Relational operators
+	bool operator== (const int_l &x);
+	bool operator== (const long long &x);
+	bool operator< (const int_l &x);
+	bool operator< (const long long &x);
+	bool operator<= (const int_l &x);
+	bool operator<= (const long long &x);
+	bool operator> (const int_l &x);
+	bool operator> (const long long &x);
+	bool operator>= (const int_l &x);
+	bool operator>= (const long long &x);
 };
 
 /*
@@ -94,4 +107,127 @@ std::ostream& operator<<(std::ostream &os, const int_l &c) {
 	os << c.num;
 	return os;
 }
+
+void int_l::operator= (const long long &x) {
+	this->num = std::to_string(x);
+}
+bool int_l::operator== (const int_l &x) {
+	if(num == x.num)
+		return true;
+	return false;
+}
+bool int_l::operator== (const long long &x) {
+	if(num == std::to_string(x))
+		return true;
+	return false;
+}
+bool int_l::operator< (const int_l &x) {
+	if(num.size() < x.num.size())
+		return true;
+	if(num.size() > x.num.size())
+		return false;
+	for (int i = 0; i < num.size(); ++i) {
+		if(num[i] < x.num[i])
+			return true;
+		if(num[i] > x.num[i])
+			return false;
+	}
+	return false;
+}
+bool int_l::operator< (const long long &x) {
+	std::string n = std::to_string(x);
+	if(num.size() < n.size())
+		return true;
+	if(num.size() > n.size())
+		return false;
+	for (int i = 0; i < num.size(); ++i) {
+		if(num[i] < n[i])
+			return true;
+		if(num[i] > n[i])
+			return false;
+	}
+	return false;
+}
+bool int_l::operator<= (const int_l &x) {
+	if(num.size() < x.num.size())
+		return true;
+	if(num.size() > x.num.size())
+		return false;
+	for (int i = 0; i < num.size(); ++i) {
+		if(num[i] < x.num[i])
+			return true;
+		if(num[i] > x.num[i])
+			return false;
+	}
+	return true;
+}
+bool int_l::operator<= (const long long &x) {
+	std::string n = std::to_string(x);
+	if(num.size() < n.size())
+		return true;
+	if(num.size() > n.size())
+		return false;
+	for (int i = 0; i < num.size(); ++i) {
+		if(num[i] < n[i])
+			return true;
+		if(num[i] > n[i])
+			return false;
+	}
+	return true;
+}
+bool int_l::operator> (const int_l &x) {
+	if(num.size() < x.num.size())
+		return false;
+	if(num.size() > x.num.size())
+		return true;
+	for (int i = 0; i < num.size(); ++i) {
+		if(num[i] < x.num[i])
+			return false;
+		if(num[i] > x.num[i])
+			return true;
+	}
+	return false;
+}
+bool int_l::operator> (const long long &x) {
+	std::string n = std::to_string(x);
+	if(num.size() < n.size())
+		return false;
+	if(num.size() > n.size())
+		return true;
+	for (int i = 0; i < num.size(); ++i) {
+		if(num[i] < n[i])
+			return false;
+		if(num[i] > n[i])
+			return true;
+	}
+	return false;
+}
+bool int_l::operator>= (const int_l &x) {
+	if(num.size() < x.num.size())
+		return false;
+	if(num.size() > x.num.size())
+		return true;
+	for (int i = 0; i < num.size(); ++i) {
+		if(num[i] < x.num[i])
+			return false;
+		if(num[i] > x.num[i])
+			return true;
+	}
+	return true;
+}
+bool int_l::operator>= (const long long &x) {
+	std::string n = std::to_string(x);
+	if(num.size() < n.size())
+		return false;
+	if(num.size() > n.size())
+		return true;
+	for (int i = 0; i < num.size(); ++i) {
+		if(num[i] < n[i])
+			return false;
+		if(num[i] > n[i])
+			return true;
+	}
+	return true;
+}
+
 #endif
