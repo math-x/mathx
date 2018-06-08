@@ -1,9 +1,10 @@
 #ifndef _STRING_TOOLS_H_
 #define _STRING_TOOLS_H_
 #include <string>
-#include <math.h>
+#include <stack>
+#include <cmath>
 #include <sstream>
-void trim( std::string &s ) {
+void trim(std::string &s) {
 	int len = s.length();
 	for (int i = 0; i < len; ++i)
 	{
@@ -17,65 +18,61 @@ void trim( std::string &s ) {
 class ExpressionNode
 {
 	private:	
-		string expression;
+		std::string expression;
 		bool type;
 		ExpressionNode *left;
 		ExpressionNode *right;
 	public:
-		ExpressionNode() : expression( "" ), type( false ), left( NULL ), right( NULL ) { }
-		ExpressionNode( string exp, bool b, ExpressionNode *l, ExpressionNode *r ) : expression( exp ), type( b ), left( l ), right( r ) { }
+		ExpressionNode() : expression(""), type(false), left(NULL), right(NULL) {}
+		ExpressionNode(std::string exp, bool b, ExpressionNode *l, ExpressionNode *r) : expression(exp), type(b), left(l), right(r) {}
 		double getValue();
 };
 class ExpressionTreeBuilder
 {	
 	private:	
-		stack<char> Operator;
-		stack<ExpressionNode *> Operand;
+		std::stack<char> Operator;
+		std::stack<ExpressionNode *> Operand;
 	public:
-		int getPrecedence( char op );
-		void processOperator( char op );
+		int getPrecedence(char op);
+		void processOperator(char op);
 		void processRightParanthesis();
-		void createExpression( char op );
-		ExpressionNode* parse( string str );
+		void createExpression(char op);
+		ExpressionNode* parse(std::string str);
 };
-int ExpressionTreeBuilder::getPrecedence( char op )
+int ExpressionTreeBuilder::getPrecedence(char op)
 {
-	switch( op )
+	switch(op)
 	{
-
 		case '^':
 			return 4;
-
 		case '/':
 		case '*':
 			return 3;
-
 		case '+':
 		case '-':
 			return 2;
-
 		default:
 			return 0;
 	}
 }
-void ExpressionTreeBuilder::processOperator( char op )
+void ExpressionTreeBuilder::processOperator(char op)
 {
-	int prec = getPrecedence( op );
-	while( !Operator.empty() && prec <= getPrecedence( Operator.top() ) )
+	int prec = getPrecedence(op);
+	while(!Operator.empty() && prec <= getPrecedence(Operator.top()))
 	{
-		createExpression( Operator.top() );
+		createExpression(Operator.top());
 		Operator.pop();
 	}
-	Operator.push( op );
+	Operator.push(op);
 }
 void ExpressionTreeBuilder::processRightParanthesis()
 {
-	while( !Operator.empty() && Operator.top() != '(' ) 
+	while(!Operator.empty() && Operator.top() != '(') 
 	{
-		createExpression( Operator.top() );
+		createExpression(Operator.top());
 		Operator.pop();
 	}
-	if( Operator.top() == '(' )
+	if(Operator.top() == '(')
 	{
 		Operator.pop();
 	}
@@ -84,7 +81,7 @@ void ExpressionTreeBuilder::processRightParanthesis()
 		throw 1;
 	}
 }
-void ExpressionTreeBuilder::createExpression( char op )
+void ExpressionTreeBuilder::createExpression(char op)
 {
 	ExpressionNode *right, *left;
 	if(!Operand.empty())
@@ -96,7 +93,7 @@ void ExpressionTreeBuilder::createExpression( char op )
 	{
 		throw 1;
 	}
-	if( !Operand.empty() )
+	if(!Operand.empty())
 	{
 		left = Operand.top();
 		Operand.pop();
@@ -105,55 +102,52 @@ void ExpressionTreeBuilder::createExpression( char op )
 	{
 		throw 1;
 	}
-	stringstream ss;
+	std::stringstream ss;
 	ss << op;
-	string s;
+	std::string s;
 	ss >> s;
-	ExpressionNode* temp = new ExpressionNode( s, 1, left, right );
-	Operand.push( temp );
+	ExpressionNode* temp = new ExpressionNode(s, 1, left, right);
+	Operand.push(temp);
 }
-ExpressionNode *ExpressionTreeBuilder::parse( string str )
+ExpressionNode *ExpressionTreeBuilder::parse(std::string str)
 {
-   	cout << str;
-	istringstream is( str );
+	trim(str);
+	std::istringstream is(str);
 	char tmp;
-	string s;
-	while( is >> tmp )
+	std::string s;
+	while(is >> tmp)
 	{
-		switch( tmp )
+		switch(tmp)
 		{
 			case '+':
 			case '-':
 			case '/':
 			case '*':
 			case '^':
-				processOperator( tmp );
+				processOperator(tmp);
 				break;
-
 			case ')':
 				processRightParanthesis();
 				break;
-
 			case '(':
-				Operator.push( tmp );
+				Operator.push(tmp);
 				break;
-
 			default :
-				is.putback( tmp );
-	            stringstream ss;
+				is.putback(tmp);
+	            std::stringstream ss;
 	            double number;
 				is >> number;
 				ss << number;
 				ss >> s;
-				Operand.push( new ExpressionNode( s, 0, NULL, NULL ) );
+				Operand.push(new ExpressionNode(s, 0, NULL, NULL));
 		}
 	}
-	while( !Operator.empty() )
+	while(!Operator.empty())
 	{
-		createExpression( Operator.top() );
+		createExpression(Operator.top());
 		Operator.pop();
 	}
-	if( Operand.size() != 1 )
+	if(Operand.size() != 1)
 	{
 		throw 1;
 	}
@@ -161,29 +155,25 @@ ExpressionNode *ExpressionTreeBuilder::parse( string str )
 }
 double ExpressionNode::getValue()
 {
-	if( type )
+	if(type)
 	{
-		switch( this->expression[0] )
+		switch(this->expression[0])
 		{
 			case '+': 
-				return ( this->left->getValue() + this->right->getValue() );
-				
+				return (this->left->getValue() + this->right->getValue());
 			case '-': 
-				return ( this->left->getValue() - this->right->getValue() );
-				
+				return (this->left->getValue() - this->right->getValue());
 			case '*': 
-				return ( this->left->getValue() * this->right->getValue() ) ;
-				
+				return (this->left->getValue() * this->right->getValue()) ;
 			case '/': 
-				return ( this->left->getValue() / this->right->getValue() );
-				
+				return (this->left->getValue() / this->right->getValue());
 			case '^': 
-				return ( pow(this->left->getValue(), this->right->getValue() ) );
+				return (pow(this->left->getValue(), this->right->getValue()));
 		}
 	}
 	else
 	{
-		istringstream is( this->expression );
+		std::istringstream is(this->expression);
 		double n;
 		is >> n;
 		return n;
@@ -192,6 +182,7 @@ double ExpressionNode::getValue()
 /*Test Main
 int main()
 {
+
 	string str;
 	std :: cin >> str;
 	ExpressionTreeBuilder t;

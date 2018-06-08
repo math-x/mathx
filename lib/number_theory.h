@@ -1,6 +1,6 @@
 #ifndef _NUMBER_THEORY_H_
 #define _NUMBER_THEORY_H_
-int gcd(int a, int b){
+int gcd(int a, int b) {
 	while( a * b ){
 		if(a > b)
 			a = a % b;

@@ -1,4 +1,3 @@
-#include "lib/extra_tools.h"
 #include "lib/number_theory.h"
 #include "lib/arithmetic.h"
 #include "lib/trigonometry.h"

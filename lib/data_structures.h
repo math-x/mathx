@@ -26,7 +26,6 @@ DSU::DSU(int n)
 		size[i] = 1;
 	}
 }
-
 int DSU::root(int x)
 {
 	if(x < n) {
@@ -35,12 +34,11 @@ int DSU::root(int x)
 		return parent[x] = root(parent[x]);
 	}
 	else {
-		cout << "ERROR: DSU sizeOutOfBoundException";
+		std::cerr << "ERROR: DSU sizeOutOfBoundException\n";
 		x = -1;
 	}
 	return x;
 }
-
 void DSU::merge(int x, int y)
 {
 	if(x < n && y < n) {
@@ -48,27 +46,23 @@ void DSU::merge(int x, int y)
 		y = root(y);
 		if(x != y) {
 			if(size[x] < size[y])
-				swap(x, y);
+				std::swap(x, y);
 			parent[y] = x;
 			size[x] += size[y];
 		}
 	} else {
-		cout << "ERROR: DSU sizeOutOfBoundException";
+		std::cerr << "ERROR: DSU sizeOutOfBoundException\n";
 	}
 }
-
 bool DSU::areInSame(int x, int y)
 {
 	if(root(x) == root(y))
 		return true;
 	return false;
 }
-
 DSU::~DSU()
 {
 	delete parent;
 	delete size;
 }
-
-
 #endif
