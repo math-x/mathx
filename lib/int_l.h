@@ -20,6 +20,12 @@ public:
 	int_l (std::string x = "0");
 	// + operator to handle addition
 	int_l operator+ (const int_l &y);
+	int_l operator+ (const long long &y);
+	friend int_l operator+ (const long long &x, int_l &y);
+	// * operator to handle multiplication
+	int_l operator* (const int_l &y);
+	int_l operator* (const long long &y);
+	friend int_l operator* (const long long &y, int_l &x);
 	// << operator to make it usable for cout
 	friend std::ostream& operator<<(std::ostream& os, const int_l &c);
 	// Assignment operator
@@ -102,7 +108,32 @@ int_l int_l::operator+ (const int_l &y) {
 	}
 	return res;
 }
-
+int_l int_l::operator+ (const long long &y) {
+	int_l x = y;
+	return (*this) + x;
+}
+int_l operator+ (const long long &x, int_l &y) {
+	return y + x;
+}
+int_l int_l::operator* (const long long &y) {
+	int_l res = 0;
+    for (int_l i = 0; i < y; i = i+1)
+    {
+        res = res + (*this);
+    }
+    return static_cast<int_l>(res);
+}
+int_l int_l::operator* (const int_l &y) {
+	int_l res = 0;
+    for (int_l i = 0; i < y; i = i+1)
+    {
+        res = res + (*this);
+    }
+    return static_cast<int_l>(res);
+}
+int_l operator* (const long long &x, int_l &y) {
+	return y * x;
+}
 std::ostream& operator<<(std::ostream &os, const int_l &c) {
 	os << c.num;
 	return os;
