@@ -53,14 +53,14 @@ int_l int_l::operator+ (const int_l &y) {
 	int_l res;
 	res.null();
 	long long len1,len2;
-	len1 = this -> num.size();
+	len1 = this->num.size();
 	len2 = y.num.size();
 	int carry=0,sum,dig1,dig2;
 	while(len1 && len2) {
 		len1--;
 		len2--;
 		dig1 = this->num[len1] - '0';
-		dig2 = y.num[len1] - '0';
+		dig2 = y.num[len2] - '0';
 		if(dig1 + dig2 + carry > 9) {
 			res.num = (char)(dig1 + dig2 - 10 + '0' + carry) + res.num;
 			carry = 1;
@@ -70,7 +70,7 @@ int_l int_l::operator+ (const int_l &y) {
 			carry = 0;
 		}	
 	}
-	if(len2) {
+	if(!len2) {
 		while(len1) {
 			len1--;
 			dig1 = this->num[len1] - '0';
