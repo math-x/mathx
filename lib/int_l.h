@@ -52,7 +52,11 @@ public:
 	bool operator>= (const int_l &x);
 	bool operator>= (const long long &x);
 	// Unary operators
-	int_l operator- ();
+	int_l  operator- ();
+	int_l& operator++();		//Prefix
+	int_l  operator++(int);		//Postfix
+	int_l& operator--();		//Prefix
+	int_l  operator--(int);		//Postfix
 };
 
 /*
@@ -429,5 +433,23 @@ int_l int_l::operator- () {
 	if(x.num != "0")
 		x.is_positive = !(x.is_positive);
 	return x;
+}
+int_l& int_l::operator++ () {
+	*this = *this + 1;
+	return *this;
+}
+int_l int_l::operator++ (int x) {
+	int_l y = *this;
+	*this = *this + 1;
+	return y;
+}
+int_l& int_l::operator-- () {
+	*this = *this - 1;
+	return *this;
+}
+int_l int_l::operator-- (int x) {
+	int_l y = *this;
+	*this = *this - 1;
+	return y;
 }
 #endif
