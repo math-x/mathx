@@ -10,3 +10,7 @@ mathx
 
 test.cpp
 test
+
+# [3] : bin
+
+bin/

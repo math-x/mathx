@@ -12,5 +12,4 @@ auto power(const T& x, const N& n){
 	else
 		return tmp * tmp * x;
 }
-
 #endif
