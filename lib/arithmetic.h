@@ -8,9 +8,8 @@ auto power(const T& x, const N& n){
 
 	auto tmp = power( x, n/2 );
 	if( n % 2 == 0 )
-		return tmp * temp;
+		return tmp * tmp;
 	else
 		return tmp * tmp * x;
 }
-
 #endif
