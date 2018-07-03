@@ -5,6 +5,11 @@
 #define INT_L_MATHX_
 #include <ostream>
 #include <string>
+
+#include <cstdint>
+
+#define INT std::int64_t
+
 /*
  * Class structure of `int_l`
  */
@@ -19,38 +24,43 @@ private:
 	// function to remove trailing 0s
 	void remove_trailing_zeroes();
 public:
-	// Constructor which converts `long long` to `int_l`
-	int_l (long long x);
+	// Constructor which converts `INT` to `int_l`
+	int_l (INT x);
+	// Constructor that converts `int` to `INT`
+	int_l (int x) : int_l(static_cast<INT>(x)) {}
 	// Constructor which converts `string` to `int_l`
 	int_l (std::string x = "0");
+	// Copy Constructor which converts `const char *` to `string`
+	// and calls the int_l (std::string x) constructor
+	int_l (const char* x) : int_l(static_cast<std::string>(x)) {}
 	// + operator to handle addition
 	int_l operator+ (const int_l &y);
-	int_l operator+ (const long long &y);
-	friend int_l operator+ (const long long &x, int_l &y);
+	int_l operator+ (const INT &y);
+	friend int_l operator+ (const INT &x, int_l &y);
 	// - operator to handle subtraction
 	int_l operator- (const int_l &y);
-	int_l operator- (const long long &y);
-	friend int_l operator- (const long long &x, int_l &y);
+	int_l operator- (const INT &y);
+	friend int_l operator- (const INT &x, int_l &y);
 	// * operator to handle multiplication
 	int_l operator* (const int_l &y);
-	int_l operator* (const long long &y);
-	friend int_l operator* (const long long &y, int_l &x);
+	int_l operator* (const INT &y);
+	friend int_l operator* (const INT &y, int_l &x);
 	// << operator to make it usable for cout
 	friend std::ostream& operator<<(std::ostream& os, const int_l &c);
 	// Assignment operator
-	void operator= (const long long &x);
+	void operator= (const INT &x);
 	void operator= (const std::string &x);
 	// Relational operators
 	bool operator== (const int_l &x);
-	bool operator== (const long long &x);
+	bool operator== (const INT &x);
 	bool operator<  (const int_l &x);
-	bool operator<  (const long long &x);
+	bool operator<  (const INT &x);
 	bool operator<= (const int_l &x);
-	bool operator<= (const long long &x);
+	bool operator<= (const INT &x);
 	bool operator>  (const int_l &x);
-	bool operator>  (const long long &x);
+	bool operator>  (const INT &x);
 	bool operator>= (const int_l &x);
-	bool operator>= (const long long &x);
+	bool operator>= (const INT &x);
 	// Unary operators
 	int_l  operator- ();
 	int_l& operator++();		//Prefix
@@ -60,7 +70,7 @@ public:
 };
 
 /*
- * Member functions' defination of `int_l` class 
+ * Member functions' defination of `int_l` class
  */
 void int_l::null() {
 	num = "";
@@ -85,7 +95,7 @@ int_l::int_l (std::string x) {
 		num = x;
 	}
 }
-int_l::int_l (long long x) {
+int_l::int_l (INT x) {
 	if (x >= 0) {
 		is_positive = true;
 		num = std::to_string(x);
@@ -102,7 +112,7 @@ int_l int_l::operator+ (const int_l &y) {
 	if(!is_positive && y.is_positive)
 		return res - (-(*this));
 	res.null();
-	long long len1,len2;
+	INT len1,len2;
 	len1 = this->num.size();
 	len2 = y.num.size();
 	int carry = 0, sum, dig1, dig2;
@@ -119,7 +129,7 @@ int_l int_l::operator+ (const int_l &y) {
 		else {
 			res.num = (char)(dig1 + dig2 + '0' + carry) + res.num;
 			carry = 0;
-		}	
+		}
 	}
 	if(!len2) {
 		while(len1) {
@@ -153,11 +163,11 @@ int_l int_l::operator+ (const int_l &y) {
 	}
 	return res;
 }
-int_l int_l::operator+ (const long long &y) {
+int_l int_l::operator+ (const INT &y) {
 	int_l x = y;
 	return (*this) + x;
 }
-int_l operator+ (const long long &x, int_l &y) {
+int_l operator+ (const INT &x, int_l &y) {
 	return y + x;
 }
 int_l int_l::operator- (const int_l &z) {
@@ -198,19 +208,19 @@ int_l int_l::operator- (const int_l &z) {
 		}
 	}
 }
-int_l int_l::operator- (const long long &y) {
+int_l int_l::operator- (const INT &y) {
 	int_l res = y;
 	res = *(this) - res;
-	return res; 
+	return res;
 }
-int_l operator- (const long long &x, int_l &y) {
+int_l operator- (const INT &x, int_l &y) {
 	int_l res = (y - x);
 	res = -res;
 	return res;
 }
-int_l int_l::operator* (const long long &y) {
+int_l int_l::operator* (const INT &y) {
 	int_l res = 0;
-	long long mod = (y >= 0 ? y : -y);
+	INT mod = (y >= 0 ? y : -y);
     for (int_l i = 0; i < mod; i = i+1)
     {
         res = res + (*this);
@@ -234,7 +244,7 @@ int_l int_l::operator* (const int_l &y) {
 	}
     return static_cast<int_l>(res);
 }
-int_l operator* (const long long &x, int_l &y) {
+int_l operator* (const INT &x, int_l &y) {
 	return y * x;
 }
 std::ostream& operator<<(std::ostream &os, const int_l &c) {
@@ -244,7 +254,7 @@ std::ostream& operator<<(std::ostream &os, const int_l &c) {
 	return os;
 }
 
-void int_l::operator= (const long long &x) {
+void int_l::operator= (const INT &x) {
 	if (x >= 0) {
 		is_positive = true;
 		this->num = std::to_string(x);
@@ -273,7 +283,7 @@ bool int_l::operator== (const int_l &x) {
 		return true;
 	return false;
 }
-bool int_l::operator== (const long long &x) {
+bool int_l::operator== (const INT &x) {
 	if(is_positive == (x >= 0)) {
 		if(x >= 0)
 			if(num == std::to_string(x))
@@ -301,7 +311,7 @@ bool int_l::operator< (const int_l &x) {
 	}
 	return false;
 }
-bool int_l::operator< (const long long &x) {
+bool int_l::operator< (const INT &x) {
 	bool sign = (x >= 0);
 	std::string n = std::to_string((sign ? x : -x));
 	if(is_positive && !sign)
@@ -337,7 +347,7 @@ bool int_l::operator<= (const int_l &x) {
 	}
 	return true;
 }
-bool int_l::operator<= (const long long &x) {
+bool int_l::operator<= (const INT &x) {
 	bool sign = (x >= 0);
 	std::string n = std::to_string((sign ? x : -x));
 	if(is_positive && !sign)
@@ -373,7 +383,7 @@ bool int_l::operator> (const int_l &x) {
 	}
 	return false;
 }
-bool int_l::operator> (const long long &x) {
+bool int_l::operator> (const INT &x) {
 	bool sign = (x >= 0);
 	std::string n = std::to_string((sign ? x : -x));
 	if(is_positive && !sign)
@@ -409,7 +419,7 @@ bool int_l::operator>= (const int_l &x) {
 	}
 	return true;
 }
-bool int_l::operator>= (const long long &x) {
+bool int_l::operator>= (const INT &x) {
 	bool sign = (x >= 0);
 	std::string n = std::to_string((sign ? x : -x));
 	if(is_positive && !sign)
