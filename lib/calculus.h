@@ -5,14 +5,14 @@
 #ifndef CALCULUS_MATHX_
 
 #define CALCULUS_MATHX_
-#define dx 0.00001
-#define NEWTON_RAPHSON_PRECISION 10
+#define dx 0.0000001
+#define NEWTON_RAPHSON_PRECISION 100
 #define INF 1e12
 // Function which returns the derivative of mathematical function `fn` at `x`
 long double differentiate(long double (*fn)(long double), long double x) {
 	long double rhd = (fn(x + dx) - fn(x)) / dx;
 	long double lhd = (fn(x) - fn(x - dx)) / dx;
-	if(fabs(rhd - lhd) < (dx))
+	if(fabs(rhd - lhd) < (dx)*100)
 		return (rhd + lhd)/2;
 	else {
 		std::cerr << "Then given function is not differentiable at " << x << '\n';
