@@ -2,15 +2,10 @@
 # Compiled Binaries
 #-------------------------------
 
-# [1] : Final binary file created on compiling mathx.cpp
-
-mathx
-
-# [2] : Test source and binary file
-
-test.cpp
-test
-
-# [3] : bin
+# [1] : bin
 
 bin/
+
+# [2] : build
+
+build/
