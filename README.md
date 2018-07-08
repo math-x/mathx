@@ -5,7 +5,7 @@ Math-x library comes with various maths functions out of the box.
 
 ## Install Instruction
 
-###Dependencies
+### Dependencies
 
 We require the following packages before you try installing the package.
 
@@ -31,3 +31,29 @@ We require the following packages before you try installing the package.
  ```
  $ cmake -DCMAKE_INSTALL_PREFIX=/home/user/mathx_build/
  ```
+
+ - If cmake runs successfully, you should now be able to see a `Makefile` in the build directory. We currently support `clean` and `all` only. We will add more targets with future upgrades to cmake. Run:
+
+ ```
+ $ make
+ ```
+
+ This should build the library successfully. To install the library to the specified directory run:
+
+ ```
+ $ make install
+ ```
+
+ __NOTE__: If you fail to provide the CMAKE_INSTALL_PREFIX, install location will be set to default (For example: /usr/local/ in case of Linux users.)
+
+## Usage Instructions
+
+Currently we do not support pkg-config so users will have to manually add the `includes` and `lib` using their respective flags.
+
+Manually building:
+
+```
+(CXX_COMPILER) -o exec_name (CXX_FILES) -I/path/to/include -L/path/to/lib -l/path/to/libMathx.so
+```
+
+We are updating our CMakelists to provide more functionality to the users.
