@@ -10,6 +10,8 @@
 #define INF 1e12
 
 #include <iostream>
+#include <climits>
+#include <cstdlib>
 
 namespace mathx {
 
@@ -17,7 +19,7 @@ namespace mathx {
     long double differentiate(long double (*fn)(long double), long double x) {
         long double rhd = (fn(x + dx) - fn(x)) / dx;
         long double lhd = (fn(x) - fn(x - dx)) / dx;
-        if(fabs(rhd - lhd) < (dx)*100)
+        if(std::abs(rhd - lhd) < (dx)*100)
             return (rhd + lhd)/2;
         else {
             std::cerr << "Then given function is not differentiable at " << x << '\n';
