@@ -1,11 +1,11 @@
 #include <iostream>
 #include <cassert>
-#include "../../lib/int_l.h"
+#include <mathx.h>
 
 int main() {
-    int_l x;
-    int_l y = 2;
-    int_l z = "2";
-    int_l a = x;
+    mathx::int_l x;
+    mathx::int_l y = 2;
+    mathx::int_l z = "2";
+    mathx::int_l a = x;
     assert(y == z);
 }

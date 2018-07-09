@@ -12,8 +12,9 @@ include_directories(mathx)
 add_library(${PROJECT_NAME} SHARED ${SOURCES})
 
 # Install library
-install(TARGETS ${PROJECT_NAME} DESTINATION lib/${PROJECT_NAME})
+install(TARGETS ${PROJECT_NAME} DESTINATION lib)
 
 # Install library headers
 file(GLOB HEADERS mathx/*.h)
 install(FILES ${HEADERS} DESTINATION include/${PROJECT_NAME})
+install(FILES mathx.h DESTINATION include)

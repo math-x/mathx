@@ -9,3 +9,19 @@ bin/
 # [2] : build
 
 build/
+
+# [3] CMake
+
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Testing
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+
+# [4] Compiled library
+
+libmathx.so

@@ -1,5 +1,5 @@
-#ifndef _STRING_TOOLS_H_
-#define _STRING_TOOLS_H_
+#ifndef MATHX_STRING_TOOLS_H_
+#define MATHX_STRING_TOOLS_H_
 
 #include <string>
 #include <stack>

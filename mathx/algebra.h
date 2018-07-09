@@ -1,10 +1,10 @@
-#ifndef _ALGEBRA_H_
-#define _ALGEBRA_H_
+#ifndef MATHX_ALGEBRA_H_
+#define MATHX_ALGEBRA_H_
 
-#include <string_tools.h>
-#include <arithmetic.h>
+#include <mathx/string_tools.h>
 
 #include <string>
+#include <cmath>
 
 namespace mathx {
 
@@ -58,7 +58,7 @@ namespace mathx {
             float sum = 0;
             for(int i = 0; i<100; i++) {
                 if (coefficients[i] != 0)
-                    sum += power(x,i)*coefficients[i];
+                    sum += std::pow(x,i)*coefficients[i];
             }
             return sum;
         }
