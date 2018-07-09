@@ -53,7 +53,9 @@ Currently we do not support pkg-config so users will have to manually add the `i
 Manually building:
 
 ```
-(CXX_COMPILER) -o exec_name (CXX_FILES) -I/path/to/include -L/path/to/lib -l/path/to/libMathx.so
+(CXX_COMPILER) -o exec_name (CXX_FILES) -I/path/to/include -L/path/to/lib
 ```
+
+__NOTE__: You dont need to provide the last two flags if library is installed in the default location.
 
 We are updating our CMakelists to provide more functionality to the users.

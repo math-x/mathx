@@ -1,5 +1,4 @@
-#ifndef _NUMBER_THEORY_H_
-#define _NUMBER_THEORY_H_
+#include <number_theory.h>
 
 namespace mathx {
     int gcd(int a, int b) {
@@ -15,5 +14,3 @@ namespace mathx {
         return (a * b / gcd(a,b));
     }
 }
-
-#endif /* _NUMBER_THEORY_H_ */

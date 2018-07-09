@@ -1,8 +1,8 @@
 /*
 * Long Integers Class `int_l` for integers without any memory bound
 */
-#ifndef INT_L_MATHX_
-#define INT_L_MATHX_
+#ifndef MATHX_INT_L_
+#define MATHX_INT_L_
 
 #include <ostream>
 #include <string>

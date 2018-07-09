@@ -2,9 +2,7 @@
  * Calculus capabilities for MathX
  * Assumes that a mathematical continous function is of form `long double func (long double)`
  */
-#ifndef CALCULUS_MATHX_
 
-#define CALCULUS_MATHX_
 #define dx 0.0000001
 #define NEWTON_RAPHSON_PRECISION 100
 #define INF 1e12
@@ -12,6 +10,8 @@
 #include <iostream>
 #include <climits>
 #include <cstdlib>
+
+#include <calculus.h>
 
 namespace mathx {
 
@@ -49,4 +49,3 @@ namespace mathx {
         return guess;
     }
 }
-#endif
