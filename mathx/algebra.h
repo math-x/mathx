@@ -60,7 +60,7 @@ namespace mathx {
     private:
         std::string var;    //variable For eg. "x","y"
         int max_coefficient;
-        std::vector<float> coefficients;
+        std::vector<double> coefficients;
 
         void fft(std::vector<Complex>& a, bool invert)  //sub part which must be abstracted and must not be public
         {
@@ -107,6 +107,7 @@ namespace mathx {
 
         Polynomial (std::string x) {
             var = "x";
+            coefficients.resize(1);
             max_coefficient = 0;
             coefficients[0] = 0;
             parse(x);
@@ -116,7 +117,7 @@ namespace mathx {
             trim(exp);
             bool flag = false;
             int temp_power, start = 0;
-            float temp_co;
+            double temp_co;
             for (int i = 0; i < exp.length(); )
             {
                 start = i;
@@ -125,16 +126,16 @@ namespace mathx {
                 while (exp[i] >= 48 && exp[i] <= 57 )
                     i++;
                 if ( exp.substr(start, i - start) == "+" || exp.substr(start, i - start) == "-") {
-                    temp_co = std::stof(exp.substr(start, i - start) + "1");
+                    temp_co = std::stod(exp.substr(start, i - start) + "1");
                 }
                 else
-                    temp_co = std::stof(exp.substr(start, i - start));
+                    temp_co = std::stod(exp.substr(start, i - start));
                 while (!(exp[i] >= 48 && exp[i] <= 57))
                     i++;
                 start = i;
                 while (exp[i] >= 48 && exp[i] <= 57 )
                     i++;
-                temp_power = std::stof(exp.substr(start, i - start));
+                temp_power = std::stod(exp.substr(start, i - start));
                 if (temp_power > max_coefficient)
                 {
                     max_coefficient = temp_power;
@@ -144,8 +145,8 @@ namespace mathx {
             }
         }
 
-        float evaluate (float const x) {
-            float sum = 0;
+        double evaluate (double const x) {
+            double sum = 0;
             for (int i = 0; i <= max_coefficient; i++) {
                 if (coefficients[i] != 0)
                     sum += std::pow(x, i) * coefficients[i];
@@ -153,9 +154,9 @@ namespace mathx {
             return sum;
         }
 
-        float const getCoeff (int i) {
+        double const getCoeff (int i) {
             if (i > max_coefficient)
-                return static_cast<float>(0);
+                return static_cast<double>(0);
             return coefficients[i];
         }
 
