@@ -1,0 +1,10 @@
+prefix=@MATHX_CONF_PREFIX@
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${exec_prefix}/include
+
+Name: mathx
+Description:
+Version: 1.0
+Libs: @CXX_FLAG@ -L${libdir} @MATHX_CONF_PREFIX@
+Cflags: @CXX_FLAG@
