@@ -2,14 +2,10 @@ cmake_minimum_required(VERSION 3.4.0)
 
 project(mathx CXX)
 
-# Find source files
-file(GLOB SOURCES src/*.cpp)
-
 # Include header files
 include_directories(mathx)
 
-# Create shared library
-add_library(${PROJECT_NAME} SHARED ${SOURCES})
+add_subdirectory(src)
 
 # Install library
 install(TARGETS ${PROJECT_NAME} DESTINATION lib)
