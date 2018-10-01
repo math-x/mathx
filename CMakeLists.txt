@@ -5,7 +5,17 @@ project(mathx CXX)
 # Include header files
 include_directories(mathx)
 
-add_subdirectory(src)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake")
+
+include(mathx_GeneratePackage)
+
+# add_subdirectory(src)
+
+# Find source files
+file(GLOB SOURCES src/*.cpp)
+
+# Create shared library
+add_library(${PROJECT_NAME} SHARED ${SOURCES})
 
 # Install library
 install(TARGETS ${PROJECT_NAME} DESTINATION lib)
