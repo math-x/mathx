@@ -67,7 +67,11 @@ DSU::~DSU()
 }
 
 //TRIE
+<<<<<<< HEAD
 struct trie {
+=======
+struct trie{
+>>>>>>> 53449f3a16104acd718ba1301d99eb884e2f932f
 	trie* next[26];
 	int totalwords;
 	bool isEndofWord;
@@ -89,10 +93,17 @@ trie* addword(trie* root, string s)
 	int L = s.size();
 	for (int i = 0; i < L; ++i)
 	{
+<<<<<<< HEAD
 		if (curr->next[s[i] - 'a'] == NULL) {
 			if (!curr->isEndofWord)
 				curr->junction = true;
 			curr->next[s[i] - 'a'] = getnode();
+=======
+		if(curr->next[s[i]-'a'] == NULL){
+			if(!curr->isEndofWord)
+				curr->junction = true;
+			curr->next[s[i]-'a'] = getnode();
+>>>>>>> 53449f3a16104acd718ba1301d99eb884e2f932f
 		}
 		curr = curr->next[s[i] - 'A'];
 		curr->totalwords++;
@@ -105,7 +116,11 @@ bool checkword(trie* root, string s)
 	int L = s.size();
 	for (int i = 0; i < L; ++i)
 	{
+<<<<<<< HEAD
 		if (curr->next[s[i] - 'a'] == NULL)
+=======
+		if(curr->next[s[i]-'a'] == NULL)
+>>>>>>> 53449f3a16104acd718ba1301d99eb884e2f932f
 			return false;
 		curr = curr->next[s[i] - 'A'];
 	}
@@ -137,7 +152,11 @@ private:
 	int getPred(int idx);
 	int getSucc(int idx);
 public:
+<<<<<<< HEAD
 	BTreeNode(int t, bool isLeaf);
+=======
+	BTreeNode(int t, bool isLeaf); 
+>>>>>>> 53449f3a16104acd718ba1301d99eb884e2f932f
 	friend class BTree;
 };
 
@@ -164,15 +183,24 @@ BTreeNode::BTreeNode(int t, bool isLeaf)
 {
 	this->t = t;
 	this->isLeaf = isLeaf;
+<<<<<<< HEAD
 	this->keys = new int[2 * t - 1];
 	this->C = new BTreeNode *[2 * t];
+=======
+	this->keys = new int[2*t-1];
+	this->C = new BTreeNode *[2*t];
+>>>>>>> 53449f3a16104acd718ba1301d99eb884e2f932f
 	this->n = 0;
 }
 
 void BTreeNode::traverse()
 {
 	for (int i = 0; i < n; ++i) {
+<<<<<<< HEAD
 		if (!isLeaf)
+=======
+		if(!isLeaf)
+>>>>>>> 53449f3a16104acd718ba1301d99eb884e2f932f
 			C[i]->traverse();
 		std::cout << keys[i] << " ";
 	}
@@ -183,10 +211,17 @@ void BTreeNode::traverse()
 BTreeNode *BTreeNode::search(int k)
 {
 	int start = 0;
+<<<<<<< HEAD
 	int end = n - 1;
 	while (start < end) {
 		int mid = (start + end) >> 1;
 		if (keys[mid] < k)
+=======
+	int end = n-1;
+	while (start < end) {
+		int mid = (start + end) >> 1;
+		if(keys[mid] < k)
+>>>>>>> 53449f3a16104acd718ba1301d99eb884e2f932f
 			start = mid + 1;
 		else
 			end = mid;
@@ -195,12 +230,21 @@ BTreeNode *BTreeNode::search(int k)
 		return this;
 	if (isLeaf)
 		return NULL;
+<<<<<<< HEAD
 	if (end == n - 1 && keys[end] < k)
 		return C[end + 1]->search(k);
 	return C[end]->search(k);
 }
 
 void BTree::insert(int k)
+=======
+	if (end == n-1 && keys[end] < k)
+		return C[end+1]->search(k);
+	return C[end]->search(k);
+}
+
+void BTree::insert(int k) 
+>>>>>>> 53449f3a16104acd718ba1301d99eb884e2f932f
 {
 	if (root == NULL) {
 		root = new BTreeNode(t, true);
@@ -224,8 +268,13 @@ void BTreeNode::insertNonFull(int k)
 {
 	if (isLeaf) {
 		int i = n;
+<<<<<<< HEAD
 		while (i > 0 && keys[i - 1] > k) {
 			keys[i] = keys[i - 1];
+=======
+		while(i > 0 && keys[i-1] > k) {
+			keys[i] = keys[i-1];
+>>>>>>> 53449f3a16104acd718ba1301d99eb884e2f932f
 			i--;
 		}
 		keys[i] = k;
@@ -233,15 +282,26 @@ void BTreeNode::insertNonFull(int k)
 	}
 	else {
 		int start = 0;
+<<<<<<< HEAD
 		int end = n - 1;
 		while (start < end) {
 			int mid = (start + end) >> 1;
 			if (keys[mid] < k)
+=======
+		int end = n-1;
+		while (start < end) {
+			int mid = (start + end) >> 1;
+			if(keys[mid] < k)
+>>>>>>> 53449f3a16104acd718ba1301d99eb884e2f932f
 				start = mid + 1;
 			else
 				end = mid;
 		}
+<<<<<<< HEAD
 		if (end == n - 1 && keys[end] < k) {
+=======
+		if (end == n-1 && keys[end] < k){
+>>>>>>> 53449f3a16104acd718ba1301d99eb884e2f932f
 			end++;
 		}
 		if (C[end]->isFull()) {
@@ -255,21 +315,34 @@ void BTreeNode::insertNonFull(int k)
 
 bool BTreeNode::isFull()
 {
+<<<<<<< HEAD
 	return (n == (2 * t - 1));
+=======
+	return (n == (2*t-1));
+>>>>>>> 53449f3a16104acd718ba1301d99eb884e2f932f
 }
 
 void BTreeNode::splitChild(int index, BTreeNode* y)
 {
 	BTreeNode *z = new BTreeNode(t, y->isLeaf);
+<<<<<<< HEAD
 	y->n = t - 1;
 	z->n = t - 1;
 	if (!y->isLeaf) {
 		for (int i = 0; i < t; ++i) {
 			z->C[i] = y->C[i + t];
+=======
+	y->n = t-1;
+	z->n = t-1;
+	if (!y->isLeaf) {
+		for (int i = 0; i < t; ++i) {
+			z->C[i] = y->C[i+t];
+>>>>>>> 53449f3a16104acd718ba1301d99eb884e2f932f
 		}
 	}
 	n++;
 	for (int i = 0; i < z->n; ++i) {
+<<<<<<< HEAD
 		z->keys[i] = y->keys[i + t];
 	}
 	int curr = n;
@@ -280,6 +353,18 @@ void BTreeNode::splitChild(int index, BTreeNode* y)
 	}
 	keys[curr] = y->keys[y->n];
 	C[curr + 1] = z;
+=======
+		z->keys[i] = y->keys[i+t];
+	}
+	int curr = n;
+	while (curr != (index)) {
+		keys[curr] = keys[curr-1];
+		C[curr] = C[curr-1];
+		curr--;
+	}
+	keys[curr] = y->keys[y->n];
+	C[curr+1] = z;
+>>>>>>> 53449f3a16104acd718ba1301d99eb884e2f932f
 }
 
 void BTreeNode::merge(int idx)
@@ -287,20 +372,35 @@ void BTreeNode::merge(int idx)
 	BTreeNode *y = C[idx];
 	BTreeNode *z = C[idx + 1];
 	int k = keys[idx];
+<<<<<<< HEAD
 	for (int i = idx + 1; i < n; ++i) {
 		C[i] = C[i + 1];
 		keys[i - 1] = keys[i];
+=======
+	for (int i = idx+1; i < n; ++i) {
+		C[i] = C[i+1];
+		keys[i-1] = keys[i];
+>>>>>>> 53449f3a16104acd718ba1301d99eb884e2f932f
 	}
 	n--;
 	int currn = y->n;
 	y->n += (z->n + 1);
 	y->keys[currn] = k;
+<<<<<<< HEAD
 	for (int i = currn + 1; i < y->n; ++i) {
 		y->keys[i] = z->keys[i - currn - 1];
 	}
 	if (!y->isLeaf) {
 		for (int i = currn + 1; i <= y->n ; ++i) {
 			y->C[i] = z->C[i - currn - 1];
+=======
+	for (int i = currn+1; i < y->n; ++i) {
+		y->keys[i] = z->keys[i-currn-1];
+	}
+	if(!y->isLeaf) {
+		for (int i = currn+1; i <= y->n ; ++i) {
+			y->C[i] = z->C[i-currn-1];
+>>>>>>> 53449f3a16104acd718ba1301d99eb884e2f932f
 		}
 	}
 	delete(z);
@@ -309,10 +409,17 @@ void BTreeNode::merge(int idx)
 int BTreeNode::getId(int k)
 {
 	int start = 0;
+<<<<<<< HEAD
 	int end = n - 1;
 	while (start < end) {
 		int mid = (start + end) >> 1;
 		if (keys[mid] < k)
+=======
+	int end = n-1;
+	while (start < end) {
+		int mid = (start + end) >> 1;
+		if(keys[mid] < k)
+>>>>>>> 53449f3a16104acd718ba1301d99eb884e2f932f
 			start = mid + 1;
 		else
 			end = mid;
@@ -323,16 +430,28 @@ int BTreeNode::getId(int k)
 int BTreeNode::getPred(int idx)
 {
 	BTreeNode *curr = C[idx];
+<<<<<<< HEAD
 	while (!curr->isLeaf) {
 		curr = curr->C[curr->n];
 	}
 	return curr->keys[curr->n - 1];
+=======
+	while(!curr->isLeaf) {
+		curr = curr->C[curr->n];
+	}
+	return curr->keys[curr->n-1];
+>>>>>>> 53449f3a16104acd718ba1301d99eb884e2f932f
 }
 
 int BTreeNode::getSucc(int idx)
 {
+<<<<<<< HEAD
 	BTreeNode *curr = C[idx + 1];
 	while (!curr->isLeaf) {
+=======
+	BTreeNode *curr = C[idx+1];
+	while(!curr->isLeaf) {
+>>>>>>> 53449f3a16104acd718ba1301d99eb884e2f932f
 		curr = curr->C[0];
 	}
 	return curr->keys[0];
@@ -341,13 +460,18 @@ int BTreeNode::getSucc(int idx)
 void BTreeNode::removeFromLeaf(int idx)
 {
 	for (int i = idx; i < n; ++i) {
+<<<<<<< HEAD
 		keys[i] = keys[i + 1];
+=======
+		keys[i] = keys[i+1];
+>>>>>>> 53449f3a16104acd718ba1301d99eb884e2f932f
 	}
 	n--;
 }
 
 void BTreeNode::removeFromNonLeaf(int idx)
 {
+<<<<<<< HEAD
 	if (C[idx]->n >= t) {
 		keys[idx] = getPred(idx);
 		C[idx]->remove(keys[idx]);
@@ -355,6 +479,15 @@ void BTreeNode::removeFromNonLeaf(int idx)
 	else if (C[idx + 1]->n >= t) {
 		keys[idx] = getSucc(idx);
 		C[idx + 1]->remove(keys[idx]);
+=======
+	if(C[idx]->n >= t) {
+		keys[idx] = getPred(idx);
+		C[idx]->remove(keys[idx]);
+	}
+	else if(C[idx+1]->n >= t) {
+		keys[idx] = getSucc(idx);
+		C[idx+1]->remove(keys[idx]);
+>>>>>>> 53449f3a16104acd718ba1301d99eb884e2f932f
 	}
 	else {
 		int k = keys[idx];
@@ -366,6 +499,7 @@ void BTreeNode::removeFromNonLeaf(int idx)
 void BTreeNode::borrowFromPred(int idx)
 {
 	BTreeNode *child = C[idx];
+<<<<<<< HEAD
 	BTreeNode *sibling = C[idx - 1];
 	for (int i = child->n - 1; i >= 0; --i) {
 		child->keys[i + 1] = child->keys[i];
@@ -375,6 +509,17 @@ void BTreeNode::borrowFromPred(int idx)
 	if (!child->isLeaf) {
 		for (int i = child->n; i >= 0; --i) {
 			child->C[i + 1] = child->C[i];
+=======
+	BTreeNode *sibling = C[idx-1];
+	for (int i = child->n-1; i >= 0; --i) {
+		child->keys[i+1] = child->keys[i];
+	}
+	child->keys[0] = keys[idx-1];
+	keys[idx-1] = sibling->keys[sibling->n-1];
+	if(!child->isLeaf) {
+		for (int i = child->n; i >= 0; --i) {
+			child->C[i+1] = child->C[i];
+>>>>>>> 53449f3a16104acd718ba1301d99eb884e2f932f
 		}
 		child->C[0] = sibling->C[sibling->n];
 	}
@@ -385,6 +530,7 @@ void BTreeNode::borrowFromPred(int idx)
 void BTreeNode::borrowFromSucc(int idx)
 {
 	BTreeNode *child = C[idx];
+<<<<<<< HEAD
 	BTreeNode *sibling = C[idx + 1];
 	child->keys[child->n] = keys[idx];
 	keys[idx] = sibling->keys[0];
@@ -395,6 +541,18 @@ void BTreeNode::borrowFromSucc(int idx)
 		child->C[child->n + 1] = sibling->C[0];
 		for (int i = 1; i <= sibling->n; ++i) {
 			sibling->C[i - 1] = sibling->C[i];
+=======
+	BTreeNode *sibling = C[idx+1];
+	child->keys[child->n] = keys[idx];
+	keys[idx] = sibling->keys[0];
+	for (int i = 1; i < sibling->n; ++i) {
+		sibling->keys[i-1] = sibling->keys[i];
+	}
+	if(!child->isLeaf) {
+		child->C[child->n+1] = sibling->C[0];
+		for (int i = 1; i <= sibling->n; ++i) {
+			sibling->C[i-1] = sibling->C[i];
+>>>>>>> 53449f3a16104acd718ba1301d99eb884e2f932f
 		}
 	}
 	child->n += 1;
@@ -404,12 +562,18 @@ void BTreeNode::borrowFromSucc(int idx)
 void BTreeNode::remove(int k)
 {
 	int idx = getId(k);
+<<<<<<< HEAD
 	if (keys[idx] == k) {
 		if (isLeaf)
+=======
+	if(keys[idx] == k) {
+		if(isLeaf)
+>>>>>>> 53449f3a16104acd718ba1301d99eb884e2f932f
 			removeFromLeaf(idx);
 		else
 			removeFromNonLeaf(idx);
 	}
+<<<<<<< HEAD
 	else if (isLeaf) {
 		std::cerr << "Sorry the key doesnot exist";
 	}
@@ -422,24 +586,52 @@ void BTreeNode::remove(int k)
 				}
 				else {
 					merge(idx - 1);
+=======
+	else if(isLeaf) {
+		std::cerr << "Sorry the key doesnot exist";
+	}
+	else {
+		if(idx == n-1 && keys[idx] < k) {
+			idx++;
+			if(C[idx]->n <= t-1) {
+				if(C[idx-1]->n >= t) {
+					borrowFromPred(idx);
+				}
+				else {
+					merge(idx-1);
+>>>>>>> 53449f3a16104acd718ba1301d99eb884e2f932f
 					idx--;
 				}
 			}
 		}
+<<<<<<< HEAD
 		else if (idx == 0 && C[idx]->n <= t - 1) {
 			if (C[idx + 1]->n >= t) {
+=======
+		else if(idx == 0 && C[idx]->n <= t-1) {
+			if(C[idx+1]->n >= t) {
+>>>>>>> 53449f3a16104acd718ba1301d99eb884e2f932f
 				borrowFromSucc(idx);
 			}
 			else {
 				merge(idx);
 			}
 		}
+<<<<<<< HEAD
 		else if (idx > 0) {
 			if (C[idx]->n <= t - 1) {
 				if (C[idx - 1]->n >= t) {
 					borrowFromPred(idx);
 				}
 				else if (C[idx + 1]->n >= t - 1) {
+=======
+		else if(idx > 0) {
+			if(C[idx]->n <= t-1) {
+				if(C[idx-1]->n >= t) {
+					borrowFromPred(idx);
+				}
+				else if(C[idx+1]->n >= t-1) {
+>>>>>>> 53449f3a16104acd718ba1301d99eb884e2f932f
 					borrowFromSucc(idx);
 				}
 				else {
@@ -453,6 +645,7 @@ void BTreeNode::remove(int k)
 
 void BTree::remove(int k)
 {
+<<<<<<< HEAD
 	if (root == NULL)
 		std::cerr << "Sorry the tree is empty";
 	else {
@@ -460,6 +653,15 @@ void BTree::remove(int k)
 		if (root->n == 0) {
 			BTreeNode *temproot = root;
 			if (root->isLeaf)
+=======
+	if(root == NULL)
+		std::cerr << "Sorry the tree is empty";
+	else {
+		root->remove(k);
+		if(root->n == 0) {
+			BTreeNode *temproot = root;
+			if(root->isLeaf)
+>>>>>>> 53449f3a16104acd718ba1301d99eb884e2f932f
 				root = NULL;
 			else
 				root = root->C[0];
@@ -492,8 +694,13 @@ void DGraph::dfs(int u)
 void DGraph::dfsutil(int u)
 {
 	visited[u] = true;
+<<<<<<< HEAD
 	for (int v : adj[u])
 		if (!visited[v])
+=======
+	for (int v: adj[u])
+		if(!visited[v])
+>>>>>>> 53449f3a16104acd718ba1301d99eb884e2f932f
 			dfs(v);
 }
 //UNDIRECTED GRAPH - Adjacency List
@@ -521,8 +728,13 @@ void DGraph::dfsutil(int u)
 {
 	visited[u] = true;
 	std::cout << u << " ";
+<<<<<<< HEAD
 	for (int v : adj[u])
 		if (!visited[v])
+=======
+	for (int v: adj[u])
+		if(!visited[v])
+>>>>>>> 53449f3a16104acd718ba1301d99eb884e2f932f
 			dfs(v);
 }
 #endif
