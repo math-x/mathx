@@ -5,10 +5,10 @@ project(mathx CXX)
 # Include header files
 include_directories(mathx)
 
-add_subdirectory(src)
+# Add appropriate C++ flags
+set(CMAKE_CXX_FLAGS "-Wall -O3 -std=c++17")
 
-# Install library
-install(TARGETS ${PROJECT_NAME} DESTINATION lib)
+add_subdirectory(src)
 
 # Install library headers
 file(GLOB HEADERS mathx/*.h)
